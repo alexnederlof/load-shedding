@@ -15,17 +15,20 @@ interface HelloResponse {
   body: string;
 }
 
-const asJson: Handler = async (event: any, context: Context, callback: Callback) => {
+
+const asJson: APIGatewayProxyHandler = async (
+    request: APIGatewayProxyEvent,
+    context: Context,
+    callback: Callback<APIGatewayProxyResult>
+  ) => {
   const stage = await getLoadStage();
   console.log('Load stage is ' + stage);
   const schedule = await getScheduleForZone(14, stage);
   console.log('Got schedule', schedule);
-  const response: HelloResponse = {
+  return {
     statusCode: 200,
     body: JSON.stringify(schedule),
   };
-
-  callback(undefined, response);
 };
 
 const asCalendar: APIGatewayProxyHandler = async (
@@ -33,14 +36,15 @@ const asCalendar: APIGatewayProxyHandler = async (
   context: Context,
   callback: Callback<APIGatewayProxyResult>
 ) => {
+  const region = Number(request.queryStringParameters?.region) || 14;
   const stage = await getLoadStage();
   console.log('Load stage is ' + stage);
-  const schedule = await getScheduleForZone(14, stage);
+  const schedule = await getScheduleForZone(region, stage);
   console.log('Got schedule', schedule);
   const events: ics.EventAttributes[] = schedule.Schedules.map(s => {
     return {
-      title: 'Load Shedding',
-      description: `At stage ${stage} for region 14`,
+      title: '⚡️ Load Shedding  ⚡️',
+      description: `At stage ${stage} for region 14. #TIA`,
       startInputType: 'utc',
       url: 'https://ewn.co.za/assets/loadshedding/capetown.html',
       status: 'CONFIRMED',
