@@ -1,0 +1,41 @@
+{
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.37",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.18.2",
+    "prettier-check": "^2.0.0",
+    "pretty-quick": "^2.0.1",
+    "serverless-offline": "^5.12.1",
+    "serverless-plugin-typescript": "^1.1.9",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.7.3"
+  },
+  "scripts": {
+    "check-codestyle": "prettier-check '**/*.{js,jsx,json,css,ts,tsx}'",
+    "fix-all-code-style": "prettier --write '**/*.{js,jsx,json,css,ts,tsx}'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "overrides": [
+      {
+        "files": "*.css",
+        "options": {
+          "useTabs": false,
+          "tabWidth": 2
+        }
+      }
+    ]
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "ics": "^2.18.0"
+  }
+}

@@ -1,0 +1,28 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+
+# Serverless directories
+.serverless
+.build
+
+# dependencies
+**/node_modules
+**/.pnp
+**/.pnp.js
+**/*.sqlite
+
+# testing
+**/coverage
+
+# production
+**/build
+
+**/generated
+
+# misc
+.DS_Store
+.env
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

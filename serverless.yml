@@ -1,0 +1,30 @@
+org: alexnederlof
+app: load-shedding-calendar
+service: load-shedding-calendar
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  profile: prive
+  stage: prod
+  region: eu-west-1
+
+functions:
+  asCalendar:
+    handler: index.asCalendar
+    events:
+      - http:
+          path: calendar
+          method: get
+  asJson:
+    handler: index.asJson
+    events:
+      - http:
+          path: json
+          method: get
+          
+
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
