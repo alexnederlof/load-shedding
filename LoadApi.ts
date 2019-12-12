@@ -29,6 +29,9 @@ export async function getSchedule() {
 }
 
 export async function getScheduleForZone(zone: number, stage: number) {
+    if (stage === 0) {
+        return { LastModified : new Date(), Schedules : []};
+    }
   const { data: schedule } = await getSchedule();
   const schedules = schedule.Schedules.filter(
     s => Number(s.Stage) === stage && s.Zones.includes(zone)
