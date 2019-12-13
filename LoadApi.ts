@@ -28,9 +28,9 @@ export async function getSchedule() {
   );
 }
 
-export async function getScheduleForZone(zone: number, stage: number) {
+export async function getScheduleForZone(zone: number, stage: number) : Promise<CompactSchedule> {
     if (stage === 0) {
-        return { LastModified : new Date(), Schedules : []};
+        return { LastModified : new Date().toISOString(), Schedules : []};
     }
   const { data: schedule } = await getSchedule();
   const schedules = schedule.Schedules.filter(
@@ -48,6 +48,14 @@ export async function getScheduleForZone(zone: number, stage: number) {
     LastModified: schedule.LastModified,
     Schedules: schedules,
   };
+}
+
+export interface CompactSchedule {
+    LastModified: string
+    Schedules: Array<{
+        begin: Date,
+        end: Date
+    }>
 }
 
 export interface Day {

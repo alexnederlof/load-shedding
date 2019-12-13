@@ -73,6 +73,9 @@ const asCalendar: APIGatewayProxyHandler = async (
   return {
     statusCode: 200,
     body: event,
+    headers: {
+        'content-type': 'text/calendar'
+    }
   };
 };
 
